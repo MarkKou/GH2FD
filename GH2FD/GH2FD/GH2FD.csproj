@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E27F182B-82F8-4756-84F7-6E3A25F9F980}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GH2FD</RootNamespace>
+    <AssemblyName>FlowDesigner_GH</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\..\AppData\Roaming\Grasshopper\Libraries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="RhinoCommon">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Rhinoceros 5\System\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Grasshopper">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\Grasshopper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GH_IO">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Common Files\McNeel\Rhinoceros\5.0\Plug-ins\Grasshopper (b45a29b1-4343-4035-989e-044e8580d9cf)\0.9.76.0\GH_IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="2FlowDesigner.cs" />
+    <Compile Include="ColumnPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColumnPicker.Designer.cs" />
+    <Compile Include="Console.cs" />
+    <Compile Include="Defined_Panel.cs" />
+    <Compile Include="Defined_Volume.cs" />
+    <Compile Include="Empty_Set_Object.cs" />
+    <Compile Include="EPW2CSV.cs" />
+    <Compile Include="Export_CN.cs" />
+    <Compile Include="External_Wind.cs" />
+    <Compile Include="Fan_Panel.cs" />
+    <Compile Include="FDInfo.cs" />
+    <Compile Include="FD_Extrusion.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_CB.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FlowDesigner_Library\CSV_Config.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_Cycle.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_DL.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FlowDesigner_Library\CSV_File.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_Group.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_Output.cs" />
+    <Compile Include="FlowDesigner_Library\CSV_Target.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Commander.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Cube.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Defined_Volume - Copy.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Defined_Volume.cs" />
+    <Compile Include="FlowDesigner_Library\FD_External_Wind.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Fan_Panel.cs" />
+    <Compile Include="FlowDesigner_Library\FD_GeoMesh.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Group.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Inlet.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Mesh.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Object.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Opening.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Outlet.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Panel.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Panel_Source.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Passive_Cube.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Passive_Panel - Copy.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Passive_Panel.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Perf_Panel.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Range.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Setting.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Target.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Vertex.cs" />
+    <Compile Include="FlowDesigner_Library\FD_Vol_Source.cs" />
+    <Compile Include="Inlet.cs" />
+    <Compile Include="Mesh_Analysis.cs" />
+    <Compile Include="Mesh_SubDiv.cs" />
+    <Compile Include="Opening.cs" />
+    <Compile Include="Outlet.cs" />
+    <Compile Include="Output_CSV.cs" />
+    <Compile Include="Output_CSV_IDs.cs" />
+    <Compile Include="Output_CSV_Loop.cs" />
+    <Compile Include="Panel_Object.cs" />
+    <Compile Include="Panel_Source.cs" />
+    <Compile Include="Passive_Cube_Fluid.cs" />
+    <Compile Include="Passive_Cube_Obstacle.cs" />
+    <Compile Include="Passive_Cube_Thermal.cs" />
+    <Compile Include="Perf_Panel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Property_Setting.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="Range_from_Box.cs" />
+    <Compile Include="Read_CSV.cs" />
+    <Compile Include="Select_CSV.cs" />
+    <Compile Include="Select_CSV.Designer.cs" />
+    <Compile Include="Set_CSV_Config.cs" />
+    <Compile Include="Set_CSV_Cycle.cs" />
+    <Compile Include="Set_CSV_Targets.cs" />
+    <Compile Include="Slicer.cs" />
+    <Compile Include="Target.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="Trigger.cs" />
+    <Compile Include="Volumn_Source.cs" />
+    <Compile Include="Write_Model.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ColumnPicker.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Select_CSV.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\air_properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\analysis_mesh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\analysis_range.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\analysis_range_Box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\command.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CSV_Cycle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CSV_Loop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CSV_Loop_IDs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CSV_OC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CSV_Target.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Defined_Panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Defined_Volume.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Empty_SO.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EPW_CSV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Export_CN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\External_Wind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fan_panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gen_properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\init_properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inlet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Loop_Trigger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mesh_Sub.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\opening.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\outlet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Output_CSV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\panel_source.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Passive_objec_Thermal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Passive_object.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Passive_object_Fluid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Passive_object_Obstacle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Passive_panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Porfrated_Panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Read_CSV.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Slice_View.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\target.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\to_FD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Volume_source.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhinoceros 5 (64-bit)\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+</Project>
