@@ -33,7 +33,6 @@ namespace GH2FD
         {
             //0
             pManager.AddGenericParameter("Cubes", "C", "Cubes converted from boxes", GH_ParamAccess.item);
-            pManager.AddTextParameter("T", "T", "", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -52,10 +51,7 @@ namespace GH2FD
             object_group.Surface_Heat_Generation = shg;
             if (st != "Default") { object_group.Surface_Temperature = Convert.ToDouble(st); }
 
-            string ty = items[0].GetType().ToString();
-
             DA.SetData(0, object_group);
-            DA.SetData(1, ty);
         }
 
         protected override System.Drawing.Bitmap Icon
