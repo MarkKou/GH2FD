@@ -11,9 +11,13 @@ namespace FlowDesigner
             : base(_Members) { }
 
         private bool me_modified = false;
+        private bool sp_modified = false;
+        private bool vo_modified = false;
         private bool bp_modified = false;
 
         private int method;
+        private double speed;
+        private double volume;
         private int balance_prio;
 
         public int Method
@@ -25,7 +29,24 @@ namespace FlowDesigner
                 me_modified = true;
             }
         }
-
+        public double Speed
+        {
+            get { return speed; }
+            set
+            {
+                speed = value;
+                sp_modified = true;
+            }
+        }
+        public double Volume
+        {
+            get { return volume; }
+            set
+            {
+                volume = value;
+                vo_modified = true;
+            }
+        }
         public int Balance_Prio
         {
             get { return balance_prio; }
@@ -61,6 +82,9 @@ namespace FlowDesigner
                         }
                     }
                 }
+
+                if (sp_modified) { p_str.Add("property set GENERAL INLETSPEED " + speed.ToString()); }
+                if (vo_modified) { p_str.Add("property set GENERAL INLETAMOUNT " + volume.ToString()); }
 
                 if (bp_modified)
                 {

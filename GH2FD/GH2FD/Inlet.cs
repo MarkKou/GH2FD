@@ -63,7 +63,7 @@ namespace GH2FD
             DA.GetData(4, ref balance_prio);
             DA.GetData(5, ref air_prop);
 
-                object_group.Method = method; 
+            object_group.Method = method;
 
             if (speed != "Default")
             {
@@ -72,7 +72,7 @@ namespace GH2FD
 
             if (volume != "Default")
             {
-                object_group.Volume = Convert.ToDouble(volume); 
+                object_group.Volume = Convert.ToDouble(volume);
             }
 
             object_group.Balance_Prio = balance_prio;
@@ -83,32 +83,32 @@ namespace GH2FD
 
                 if (air_properties[0] != "Default")
                 {
-                    object_group.Temperature = Convert.ToDouble(air_properties[0]); 
+                    object_group.Temperature = Convert.ToDouble(air_properties[0]);
                 }
 
                 if (air_properties[1] != "Default")
                 {
-                    object_group.R_Humidity = Convert.ToDouble(air_properties[1]); 
+                    object_group.R_Humidity = Convert.ToDouble(air_properties[1]);
                 }
 
                 if (air_properties[2] != "Default")
                 {
-                    object_group.Contamination = Convert.ToDouble(air_properties[2]); 
+                    object_group.Contamination = Convert.ToDouble(air_properties[2]);
                 }
 
                 if (air_properties[3] != "Default")
                 {
-                    object_group.Other1 = Convert.ToDouble(air_properties[3]); 
+                    object_group.Other1 = Convert.ToDouble(air_properties[3]);
                 }
 
                 if (air_properties[4] != "Default")
                 {
-                    object_group.Other2 = Convert.ToDouble(air_properties[4]); 
+                    object_group.Other2 = Convert.ToDouble(air_properties[4]);
                 }
 
                 if (air_properties[5] != "Default")
                 {
-                    object_group.Other3 = Convert.ToDouble(air_properties[5]); 
+                    object_group.Other3 = Convert.ToDouble(air_properties[5]);
                 }
             }
 
