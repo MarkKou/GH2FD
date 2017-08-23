@@ -45,20 +45,25 @@ namespace GH2FD
                 ps.Add(bv.Location);
             }
 
-            Vector3d nv = basebrep.Faces[0].NormalAt(0, 0);
+            Vector3d nv = new Vector3d(0, 0, 0);
 
-            double tx = nv.X / nv.Length * height;
-            double ty = nv.Y / nv.Length * height;
-            double tz = nv.Z / nv.Length * height;
-            if (revers)
-            { 
-                nv = new Vector3d(-tx, -ty, -tz);
-                ps.Reverse();
-            }
-            else
+            for (int i = 0; i < 3; i++)
             {
-                nv = new Vector3d(tx, ty, tz);
+                int j = i + 1;
+                if (j == 3) j = 0;
+                nv.X += (((ps[i].Z) + (ps[j].Z)) * ((ps[j].Y) - (ps[i].Y)));
+                nv.Y += (((ps[i].X) + (ps[j].X)) * ((ps[j].Z) - (ps[i].Z)));
+                nv.Z += (((ps[i].Y) + (ps[j].Y)) * ((ps[j].X) - (ps[i].X)));
             }
+
+            nv.Unitize();
+
+            if (revers)
+            {
+                height = -height;
+            }
+
+            nv = new Vector3d(nv.X * height, nv.Y * height, nv.Z * height);
 
             List<FD_Vertex> basepolyline = new List<FD_Vertex>();
 
