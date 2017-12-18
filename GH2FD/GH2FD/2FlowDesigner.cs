@@ -26,7 +26,7 @@ namespace GH2FD
             //1
             pManager.AddTextParameter("IDs of Fixed Objects", "IFO", "IDs of the objects that will not be deleted when update model", GH_ParamAccess.tree, "");
             //2
-            pManager.AddGenericParameter("Objects", "Odj", "Objects that will be updated", GH_ParamAccess.list);
+            pManager.AddGenericParameter("FlowDesigner Objects", "Obj", "Objects to be updated", GH_ParamAccess.list);
             //3
             pManager.AddBooleanParameter("Write Model", "WM", "Write models and update the settings", GH_ParamAccess.item, false);
             //4

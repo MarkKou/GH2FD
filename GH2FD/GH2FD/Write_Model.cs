@@ -21,11 +21,11 @@ namespace GH2FD
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             //0
-            pManager.AddGenericParameter("Model", "M", "Model to send to FD", GH_ParamAccess.list);
+            pManager.AddGenericParameter(Tools.c_o_n, Tools.c_o_s, Tools.c_o_d, GH_ParamAccess.list);
             //1
-            pManager.AddTextParameter("IDs of undelete objects", "IU", "ID of undelete objects", GH_ParamAccess.tree, "Default");
+            pManager.AddTextParameter("IDs of Fixed Objects", "IFO", "IDs of the objects that will not be deleted when update model", GH_ParamAccess.tree, "Default");
             //2
-            pManager.AddBooleanParameter("Run", "R", "Run", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Write Model", "WM", "Write models and update the settings", GH_ParamAccess.item);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)

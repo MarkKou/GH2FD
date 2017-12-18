@@ -17,14 +17,14 @@ namespace GH2FD
 
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddBrepParameter("B", "B", "", GH_ParamAccess.item);
-            pManager.AddNumberParameter("H", "H", "", GH_ParamAccess.item, 1.0);
-            pManager.AddBooleanParameter("R", "R", "", GH_ParamAccess.item, false);
+            pManager.AddBrepParameter("Base Brep", "B", "A planar brep used as the base of extrusion", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Height", "H", "Height of the extrusion", GH_ParamAccess.item, 1.0);
+            pManager.AddBooleanParameter("Reverse", "R", "Reverse the extrusion direction", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("C", "C", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FD Extrusion", "FE", @"A FD Extrusion object, connect this output to a component in '02 Cube Objects'", GH_ParamAccess.item);
             pManager.AddBrepParameter("B", "B", "", GH_ParamAccess.item);
         }
 
@@ -104,7 +104,7 @@ namespace GH2FD
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.FD_Extrusion;
             }
         }
 

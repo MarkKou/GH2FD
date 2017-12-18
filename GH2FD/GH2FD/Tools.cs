@@ -20,6 +20,10 @@ namespace GH2FD
         public static string sub_cate_05 = "05 Tools";
         public static string sub_cate_06 = "06";
 
+        public static string c_o_n = "FlowDesigner Objects";
+        public static string c_o_s = "Obj";
+        public static string c_o_d = "Objects to send to FlowDesigner";
+
         public static List<string> MultiLine2List(string ori_str)
         {
             List<string> converted = new List<string>();
@@ -89,18 +93,40 @@ namespace GH2FD
                 {
                     cube_list.Add(ori_box.Value);
                 }
-                else if (ori_box.Value is Mesh)
+                else if (ori_box.Value is Mesh || ori_box.Value is Brep)
                 {
+                    Mesh ori_mesh;
+
+                    if(ori_box.Value is Brep)
+                    {
+                        Mesh[] converted_list = Mesh.CreateFromBrep(ori_box.Value, new MeshingParameters());
+                        ori_mesh = new Mesh();
+
+                        foreach(Mesh m in converted_list)
+                        {
+                            ori_mesh.Append(m);
+                        }
+                    }
+                    else { ori_mesh = ori_box.Value; }
+
                     FD_GeoMesh mo = new FD_GeoMesh();
 
-                    foreach(Point3d v in ori_box.Value.Vertices)
+                    foreach(Point3d v in ori_mesh.Vertices)
                     {
                         mo.Vertices.Add(new FD_Vertex(v.X, v.Y, v.Z));
                     }
 
-                    foreach(MeshFace f in ori_box.Value.Faces)
+                    foreach(MeshFace f in ori_mesh.Faces)
                     {
-                        mo.Faces.Add(new FD_Face(f.A, f.B, f.C));
+                        if (f.IsTriangle)
+                        {
+                            mo.Faces.Add(new FD_Face(f.A, f.B, f.C));
+                        }
+                        else if(f.IsQuad)
+                        {
+                            mo.Faces.Add(new FD_Face(f.A, f.B, f.C));
+                            mo.Faces.Add(new FD_Face(f.C, f.D, f.A));
+                        }
                     }
 
                     cube_list.Add(mo);

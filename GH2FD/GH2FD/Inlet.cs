@@ -41,7 +41,7 @@ namespace GH2FD
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             //0
-            pManager.AddGenericParameter("Panels", "P", "Panels converted from mesh", GH_ParamAccess.item);
+            pManager.AddGenericParameter(Tools.c_o_n, Tools.c_o_s, Tools.c_o_d, GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
