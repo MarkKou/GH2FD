@@ -7,9 +7,10 @@ using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 using FlowDesigner;
 using Rhino.Geometry;
+using Rhino;
 
 namespace GH2FD
-{
+{ 
     static class Tools
     {
         public static string sub_cate_00 = "00 Before Modelling";
@@ -162,6 +163,83 @@ namespace GH2FD
             }
 
             return panel_list;
+        }
+
+        public static List<GH_Surface> GenerateNormalArrow(List<Mesh> items)
+        {
+            RhinoDoc doc = RhinoDoc.ActiveDoc;
+            string unit = doc.GetUnitSystemName(true, true, true, true);
+
+            int mp = 1;
+
+            if (unit == "m") { mp = 1; }
+            else if (unit == "mm") { mp = 1000; }
+            else if (unit == "cm") { mp = 100; }
+
+            List<GH_Surface> arrow_list = new List<GH_Surface>();
+
+            foreach (Mesh ori_mesh in items)
+            {
+                foreach (MeshFace m_face in ori_mesh.Faces)
+                {
+                    List<Point3d> ps = new List<Point3d>();
+
+                    if (m_face.IsTriangle)
+                    {
+                        ps.Add(ori_mesh.Vertices[m_face.A]);
+                        ps.Add(ori_mesh.Vertices[m_face.B]);
+                        ps.Add(ori_mesh.Vertices[m_face.C]);
+                    }
+                    else if (m_face.IsQuad)
+                    {
+                        ps.Add(ori_mesh.Vertices[m_face.A]);
+                        ps.Add(ori_mesh.Vertices[m_face.B]);
+                        ps.Add(ori_mesh.Vertices[m_face.C]);
+                        ps.Add(ori_mesh.Vertices[m_face.D]);
+                    }
+                    else { }
+
+                    Vector3d[] tv = GetFaceNormal(ps);
+
+                    Vector3d nv = tv[0];
+                    Point3d cp = new Point3d(tv[1].X, tv[1].Y, tv[1].Z);
+
+                    Plane bp = new Plane(cp, nv);
+                    Circle bc = new Circle(bp, 0.1 * mp);
+                    NurbsCurve _bc = bc.ToNurbsCurve();
+                    GH_Surface arrow = new GH_Surface(Surface.CreateExtrusionToPoint(_bc, new Point3d(cp.X + nv.X * mp, cp.Y + nv.Y * mp, cp.Z + nv.Z * mp)));
+                    arrow_list.Add(arrow);
+                }
+            }
+
+            return arrow_list;
+        }
+
+        public static Vector3d[] GetFaceNormal(List<Point3d> ps)
+        {
+            Vector3d nv = new Vector3d(0, 0, 0);
+            Vector3d cp = new Vector3d(0, 0, 0);
+
+            for (int i = 0; i < ps.Count; i++)
+            {
+                int j = i + 1;
+                if (j == ps.Count) j = 0;
+                nv.X += (((ps[i].Z) + (ps[j].Z)) * ((ps[j].Y) - (ps[i].Y)));
+                nv.Y += (((ps[i].X) + (ps[j].X)) * ((ps[j].Z) - (ps[i].Z)));
+                nv.Z += (((ps[i].Y) + (ps[j].Y)) * ((ps[j].X) - (ps[i].X)));
+
+                cp.X += ps[i].X;
+                cp.Y += ps[i].Y;
+                cp.Z += ps[i].Z;
+            }
+
+            nv.Unitize();
+
+            Vector3d[] results = new Vector3d[2];
+            results[0] = nv;
+            results[1] = new Vector3d(cp.X / ps.Count, cp.Y / ps.Count, cp.Z / ps.Count);
+
+            return results;
         }
 
         //public static void updateIDs(GH_Structure<GH_String> _new_ids)

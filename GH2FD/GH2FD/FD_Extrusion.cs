@@ -45,18 +45,7 @@ namespace GH2FD
                 ps.Add(bv.Location);
             }
 
-            Vector3d nv = new Vector3d(0, 0, 0);
-
-            for (int i = 0; i < 3; i++)
-            {
-                int j = i + 1;
-                if (j == 3) j = 0;
-                nv.X += (((ps[i].Z) + (ps[j].Z)) * ((ps[j].Y) - (ps[i].Y)));
-                nv.Y += (((ps[i].X) + (ps[j].X)) * ((ps[j].Z) - (ps[i].Z)));
-                nv.Z += (((ps[i].Y) + (ps[j].Y)) * ((ps[j].X) - (ps[i].X)));
-            }
-
-            nv.Unitize();
+            Vector3d nv = Tools.GetFaceNormal(ps)[0];
 
             if (revers)
             {

@@ -4,6 +4,7 @@ using FlowDesigner;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
+using Grasshopper.Kernel.Types;
 
 namespace GH2FD
 {
@@ -40,6 +41,8 @@ namespace GH2FD
         {
             //0
             pManager.AddGenericParameter(Tools.c_o_n, Tools.c_o_s, Tools.c_o_d, GH_ParamAccess.item);
+            //1
+            pManager.AddGeometryParameter("Normal Vector", "NV", "Display the normal vector", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -76,7 +79,10 @@ namespace GH2FD
 
             object_group.Macro_model = mm;
 
+            List<GH_Surface> arrow_list = Tools.GenerateNormalArrow(mesh_list);
+
             DA.SetData(0, object_group);
+            DA.SetDataList(1, arrow_list);
         }
 
         protected override System.Drawing.Bitmap Icon
