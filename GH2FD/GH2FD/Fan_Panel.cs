@@ -38,18 +38,25 @@ namespace GH2FD
             Param_Integer p4 = (Param_Integer)pManager[4];
             p4.AddNamedValue("Plus", 0);
             p4.AddNamedValue("Minus", 1);
+            pManager.AddBooleanParameter("Reverse", "R", "Reverse the panel direction", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             //0
             pManager.AddGenericParameter(Tools.c_o_n, Tools.c_o_s, Tools.c_o_d, GH_ParamAccess.item);
+            //1
+            pManager.AddSurfaceParameter("Normal Vector", "NV", "Display the normal vector", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<Mesh> mesh_list = new List<Mesh>();
+            bool rev = false;
             DA.GetDataList(0, mesh_list);
+            DA.GetData(5, ref rev);
+
+            if (rev) { Tools.Reverse_Meshs(mesh_list); }
 
             FD_Fan_Panel object_group = new FD_Fan_Panel(Tools.GeneratePanelList(mesh_list));
 
@@ -58,10 +65,12 @@ namespace GH2FD
             string volume = "";
             int direction = 0;
 
+
             DA.GetData(1, ref method);
             DA.GetData(2, ref speed);
             DA.GetData(3, ref volume);
             DA.GetData(4, ref direction);
+
 
             object_group.Method = method;
 
@@ -77,7 +86,10 @@ namespace GH2FD
 
             object_group.Direction = direction;
 
+            List<Surface> arrow_list = Tools.GenerateNormalArrow(mesh_list);
+
             DA.SetData(0, object_group);
+            DA.SetDataList(1, arrow_list);
         }
 
         protected override System.Drawing.Bitmap Icon

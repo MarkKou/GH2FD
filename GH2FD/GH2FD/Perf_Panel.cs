@@ -35,6 +35,7 @@ namespace GH2FD
             Param_Integer p4 = (Param_Integer)pManager[4];
             p4.AddNamedValue("Filter", 0);
             p4.AddNamedValue("Louver", 1);
+            pManager.AddBooleanParameter("Reverse", "R", "Reverse the panel direction", GH_ParamAccess.item, false);
         }
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
@@ -42,13 +43,17 @@ namespace GH2FD
             //0
             pManager.AddGenericParameter(Tools.c_o_n, Tools.c_o_s, Tools.c_o_d, GH_ParamAccess.item);
             //1
-            pManager.AddGeometryParameter("Normal Vector", "NV", "Display the normal vector", GH_ParamAccess.list);
+            pManager.AddSurfaceParameter("Normal Vector", "NV", "Display the normal vector", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             List<Mesh> mesh_list = new List<Mesh>();
+            bool rev = false;
             DA.GetDataList(0, mesh_list);
+            DA.GetData(5, ref rev);
+
+            if (rev) { Tools.Reverse_Meshs(mesh_list); }
 
             FD_Perf_Panel object_group = new FD_Perf_Panel(Tools.GeneratePanelList(mesh_list));
 
@@ -79,7 +84,7 @@ namespace GH2FD
 
             object_group.Macro_model = mm;
 
-            List<GH_Surface> arrow_list = Tools.GenerateNormalArrow(mesh_list);
+            List<Surface> arrow_list = Tools.GenerateNormalArrow(mesh_list);
 
             DA.SetData(0, object_group);
             DA.SetDataList(1, arrow_list);

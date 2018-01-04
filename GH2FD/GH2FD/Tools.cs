@@ -165,7 +165,7 @@ namespace GH2FD
             return panel_list;
         }
 
-        public static List<GH_Surface> GenerateNormalArrow(List<Mesh> items)
+        public static List<Surface> GenerateNormalArrow(List<Mesh> items)
         {
             RhinoDoc doc = RhinoDoc.ActiveDoc;
             string unit = doc.GetUnitSystemName(true, true, true, true);
@@ -176,7 +176,7 @@ namespace GH2FD
             else if (unit == "mm") { mp = 1000; }
             else if (unit == "cm") { mp = 100; }
 
-            List<GH_Surface> arrow_list = new List<GH_Surface>();
+            List<Surface> arrow_list = new List<Surface>();
 
             foreach (Mesh ori_mesh in items)
             {
@@ -207,7 +207,7 @@ namespace GH2FD
                     Plane bp = new Plane(cp, nv);
                     Circle bc = new Circle(bp, 0.1 * mp);
                     NurbsCurve _bc = bc.ToNurbsCurve();
-                    GH_Surface arrow = new GH_Surface(Surface.CreateExtrusionToPoint(_bc, new Point3d(cp.X + nv.X * mp, cp.Y + nv.Y * mp, cp.Z + nv.Z * mp)));
+                    Surface arrow = Surface.CreateExtrusionToPoint(_bc, new Point3d(cp.X + nv.X * mp, cp.Y + nv.Y * mp, cp.Z + nv.Z * mp));
                     arrow_list.Add(arrow);
                 }
             }
@@ -240,6 +240,37 @@ namespace GH2FD
             results[1] = new Vector3d(cp.X / ps.Count, cp.Y / ps.Count, cp.Z / ps.Count);
 
             return results;
+        }
+
+        public static void Reverse_Meshs(List<Mesh> mesh_list)
+        {
+            foreach(Mesh mesh in mesh_list)
+            {
+                List<MeshFace> templist = new List<MeshFace>();
+                foreach(MeshFace mf in mesh.Faces)
+                {
+                    templist.Add(mf);
+                }
+
+                mesh.Faces.Clear();
+
+                foreach (MeshFace mf in templist)
+                {
+                    mesh.Faces.AddFace(Reverse_MeshFace(mf));
+                }
+            }
+        }
+
+        public static MeshFace Reverse_MeshFace(MeshFace mf)
+        {
+            if (mf.IsQuad)
+            {
+                return new MeshFace(mf.D, mf.C, mf.B, mf.A);
+            }
+            else
+            {
+                return new MeshFace(mf.C, mf.B, mf.A);
+            }
         }
 
         //public static void updateIDs(GH_Structure<GH_String> _new_ids)
