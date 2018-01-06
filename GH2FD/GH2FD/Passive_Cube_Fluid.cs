@@ -19,7 +19,7 @@ namespace GH2FD
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             //0
-            pManager.AddGenericParameter("Boxes", "B", "Boxes to be converted", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Geometries", "G", "Geometries to be converted,\r\nYou can input\r\n  Box\r\n  FD_Extrusion\r\n  Mesh (will be triangulated)\r\n  Brep (will be triangulated)", GH_ParamAccess.list);
             //1
             pManager.AddTextParameter("Type", "Ty", "The name of the fluid. Please check the fluid list in FD", GH_ParamAccess.item, "Default");
             //2

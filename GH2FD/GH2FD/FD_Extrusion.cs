@@ -24,8 +24,8 @@ namespace GH2FD
 
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("FD Extrusion", "FE", @"A FD Extrusion object, connect this output to a component in '02 Cube Objects'", GH_ParamAccess.item);
-            pManager.AddBrepParameter("B", "B", "", GH_ParamAccess.item);
+            pManager.AddGenericParameter("FD Extrusion", "G", @"A FD Extrusion object, connect this output to a component in '02 Cube Objects'", GH_ParamAccess.item);
+            pManager.AddBrepParameter("Shape", "S", "Just for display", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -39,18 +39,26 @@ namespace GH2FD
             DA.GetData(2, ref revers);
 
             List<Point3d> ps = new List<Point3d>();
+            List<BrepEdge> be_list = new List<BrepEdge>();
 
-            foreach (BrepVertex bv in basebrep.Vertices)
+            foreach (BrepTrim btr in basebrep.Loops[0].Trims)
             {
-                ps.Add(bv.Location);
+                be_list.Add(btr.Edge);
             }
 
-            Vector3d nv = Tools.GetFaceNormal(ps)[0];
+            AddFirstEdge(be_list[0], be_list[1]);
+
+            for (int i = 1; i < be_list.Count - 1; i++)
+            {
+                AddEdge(be_list[i]);
+            }
 
             if (revers)
             {
-                height = -height;
+                ps.Reverse();
             }
+
+            Vector3d nv = Tools.GetFaceNormal(ps)[0];
 
             nv = new Vector3d(nv.X * height, nv.Y * height, nv.Z * height);
 
@@ -61,7 +69,7 @@ namespace GH2FD
                 basepolyline.Add(new FD_Vertex(pt.X, pt.Y, pt.Z));
             }
 
-            ps.Add(basebrep.Vertices[0].Location);
+            ps.Add(ps[0]);
 
             PolylineCurve pc = new PolylineCurve(ps);
 
@@ -85,6 +93,40 @@ namespace GH2FD
 
             DA.SetData(0, cube);
             DA.SetData(1, step2);
+
+            bool SamePoint(Point3d p1, Point3d p2)
+            {
+                double dx = Math.Abs(p1.X - p2.X);
+                double dy = Math.Abs(p1.Y - p2.Y);
+                double dz = Math.Abs(p1.Z - p2.Z);
+
+                if (dx < 0.001 && dy < 0.001 && dz < 0.001) { return true; }
+                else { return false; }
+            }
+
+            void AddEdge(BrepEdge be)
+            {
+                if(SamePoint(ps[ps.Count-1],be.PointAtStart))
+                { ps.Add(be.PointAtEnd); }
+                else
+                { ps.Add(be.PointAtStart); }
+            }
+
+            void AddFirstEdge(BrepEdge be0, BrepEdge be1)
+            {
+                ps.Clear();
+
+                if(SamePoint( be0.PointAtEnd,be1.PointAtEnd)|| SamePoint(be0.PointAtEnd, be1.PointAtStart))
+                {
+                    ps.Add(be0.PointAtStart);
+                    ps.Add(be0.PointAtEnd);
+                }
+                else
+                {
+                    ps.Add(be0.PointAtEnd);
+                    ps.Add(be0.PointAtStart);
+                }
+            }
         }
 
         protected override System.Drawing.Bitmap Icon
